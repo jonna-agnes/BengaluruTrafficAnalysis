@@ -4,7 +4,7 @@
     python -m cloud.setup snowflake    # warehouse, DB, schemas, tables, stages, service user;
                                        # then links the Snowflake integration to the IAM role
     python -m cloud.setup all          # both, in order
-    python -m cloud.setup load         # COPY INTO from S3 now (what the Airflow DAG does every 5 min)
+    python -m cloud.setup load         # COPY INTO from S3 (cloud.pipeline runs this + dbt)
     python -m cloud.setup status       # what exists, file/row counts
     python -m cloud.setup teardown --yes
 
@@ -21,7 +21,7 @@ import time
 from pathlib import Path
 
 from cloud import config
-from cloud.config import AIRFLOW_DIR, CONTAINER_KEY_PATH, KEY_DIR, PRIVATE_KEY_FILE, REPO_ROOT
+from cloud.config import KEY_DIR, PRIVATE_KEY_FILE, REPO_ROOT
 
 SQL_TEMPLATE = Path(__file__).parent / "snowflake" / "setup.sql"
 STATE_FILE = Path(__file__).parent / ".state.json"  # gitignored; remembers Snowflake's IAM identity
@@ -219,28 +219,10 @@ def setup_snowflake(aws: config.AwsSettings, sf: config.SnowflakeSettings) -> No
                 log(f"waiting for IAM propagation ({exc.__class__.__name__})")
                 time.sleep(10)
 
-    write_airflow_env(sf)
-    log("Snowflake ready. Next: cd airflow && docker compose up -d --build")
+    log("Snowflake ready. Next: python -m cloud.pipeline")
 
 
-def write_airflow_env(sf: config.SnowflakeSettings) -> None:
-    from cryptography.fernet import Fernet
-
-    env_file = AIRFLOW_DIR / ".env"
-    upsert_env(env_file, {
-        "SNOWFLAKE_ACCOUNT": sf.account or "", "SNOWFLAKE_USER": sf.service_user,
-        "SNOWFLAKE_PRIVATE_KEY_PATH": CONTAINER_KEY_PATH, "SNOWFLAKE_DATABASE": sf.database,
-        "SNOWFLAKE_SCHEMA": "RAW", "SNOWFLAKE_WAREHOUSE": sf.warehouse, "SNOWFLAKE_ROLE": sf.role,
-    })
-    upsert_env(env_file, {
-        "AIRFLOW_UID": "50000",
-        "AIRFLOW_FERNET_KEY": Fernet.generate_key().decode(),
-        "AIRFLOW_API_SECRET_KEY": secrets.token_urlsafe(32),
-    }, only_if_missing={"AIRFLOW_UID", "AIRFLOW_FERNET_KEY", "AIRFLOW_API_SECRET_KEY"})
-    log(f"wrote {env_file}")
-
-
-# --------------------------------------------------------------------------- load (same COPY as the DAG)
+# --------------------------------------------------------------------------- load S3 -> Snowflake
 COPY_SQL = (
     "COPY INTO {table} FROM @{stage} PATTERN = '.*[.]parquet' "
     "MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE "
@@ -250,7 +232,7 @@ COPY_SQL = (
 
 
 def service_connection(sf: config.SnowflakeSettings):
-    """Connect as the key-pair service user (what Airflow and dbt use)."""
+    """Connect as the key-pair service user (what the pipeline and dbt use)."""
     import snowflake.connector
     from cryptography.hazmat.primitives import serialization
 
@@ -262,7 +244,7 @@ def service_connection(sf: config.SnowflakeSettings):
 
 
 def load(sf: config.SnowflakeSettings) -> None:
-    """Run the Airflow DAG's COPY INTO by hand (S3 stages -> RAW / AGGREGATED)."""
+    """COPY INTO from the S3 stages into RAW / AGGREGATED. Files already loaded are skipped."""
     with service_connection(sf) as conn:
         cur = conn.cursor()
         for table, stage in (("RAW.RAW_TRAFFIC_DATA", "RAW.TRAFFIC_RAW_STAGE"),

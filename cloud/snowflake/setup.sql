@@ -11,7 +11,7 @@ USE ROLE ACCOUNTADMIN;
 CREATE ROLE IF NOT EXISTS {{ ROLE }} COMMENT = 'Traffic pipeline: loads RAW data and runs dbt';
 GRANT ROLE {{ ROLE }} TO ROLE SYSADMIN;
 
--- Cost guardrail: the Airflow DAG resumes the warehouse every 5 minutes.
+-- Cost guardrail: every pipeline run resumes the warehouse.
 CREATE RESOURCE MONITOR IF NOT EXISTS {{ RESOURCE_MONITOR }}
   WITH CREDIT_QUOTA = {{ CREDIT_QUOTA }} FREQUENCY = MONTHLY START_TIMESTAMP = IMMEDIATELY
   TRIGGERS ON 80 PERCENT DO NOTIFY
@@ -41,13 +41,13 @@ GRANT USAGE ON INTEGRATION {{ INTEGRATION }} TO ROLE {{ ROLE }};
 CREATE DATABASE IF NOT EXISTS {{ DATABASE }};
 GRANT OWNERSHIP ON DATABASE {{ DATABASE }} TO ROLE {{ ROLE }} COPY CURRENT GRANTS;
 
--- Service user for Airflow + dbt: key-pair auth (TYPE = SERVICE cannot use passwords).
+-- Service user for the pipeline + dbt: key-pair auth (TYPE = SERVICE cannot use passwords).
 CREATE USER IF NOT EXISTS {{ SERVICE_USER }}
   TYPE = SERVICE
   DEFAULT_ROLE = {{ ROLE }}
   DEFAULT_WAREHOUSE = {{ WAREHOUSE }}
   DEFAULT_NAMESPACE = {{ DATABASE }}.RAW
-  COMMENT = 'Traffic pipeline service user (Airflow, dbt)';
+  COMMENT = 'Traffic pipeline service user (load + dbt)';
 ALTER USER {{ SERVICE_USER }} SET
   RSA_PUBLIC_KEY = '{{ RSA_PUBLIC_KEY }}'
   DEFAULT_ROLE = {{ ROLE }}
@@ -85,7 +85,7 @@ CREATE OR REPLACE STAGE AGGREGATED.TRAFFIC_AGG_STAGE
   FILE_FORMAT = AGGREGATED.PARQUET_FORMAT;
 
 -- Columns match the Spark output schemas; _SOURCE_FILE/_LOADED_AT are filled by
--- COPY INTO ... INCLUDE_METADATA in airflow/dags/traffic.py.
+-- COPY INTO ... INCLUDE_METADATA in cloud/setup.py.
 CREATE TABLE IF NOT EXISTS RAW.RAW_TRAFFIC_DATA (
   EVENT_ID                  VARCHAR,
   EVENT_TIMESTAMP           VARCHAR,

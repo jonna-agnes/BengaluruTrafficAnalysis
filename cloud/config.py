@@ -6,11 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-AIRFLOW_DIR = REPO_ROOT / "airflow"
-KEY_DIR = AIRFLOW_DIR / "keys"
-PRIVATE_KEY_FILE = KEY_DIR / "snowflake_svc.p8"
-# Where the key is mounted inside the Airflow containers (see airflow/docker-compose.yml).
-CONTAINER_KEY_PATH = "/opt/airflow/keys/snowflake_svc.p8"
+KEY_DIR = REPO_ROOT / "keys"                        # gitignored
+PRIVATE_KEY_FILE = KEY_DIR / "snowflake_svc.p8"     # Snowflake service-user private key
 
 
 def _load_dotenv() -> None:

@@ -1,0 +1,38 @@
+# dbt profiles. Run from the repo root:
+#   python -m cloud.pipeline                                               (loads .env, then builds on Snowflake)
+#   dbt build --project-dir traffic --profiles-dir traffic/profiles                 # Snowflake
+#   dbt build --project-dir traffic --profiles-dir traffic/profiles --target s3     # DuckDB reading S3
+traffic:
+  target: snowflake
+  outputs:
+    snowflake:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER', 'TRAFFIC_SVC') }}"
+      private_key_path: "{{ env_var('SNOWFLAKE_PRIVATE_KEY_PATH', 'keys/snowflake_svc.p8') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE', 'TRAFFIC_ROLE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE', 'TRAFFIC_WH') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE', 'TRAFFIC') }}"
+      schema: RAW
+      threads: 4
+
+    s3:   # DuckDB warehouse reading the Parquet lake in S3 (TRAFFIC_LOCAL_PATH=s3://<bucket>)
+      type: duckdb
+      path: "{{ env_var('TRAFFIC_DUCKDB_PATH', 'output/traffic.duckdb') }}"
+      schema: main
+      threads: 4
+      extensions: [httpfs, aws]
+      settings: {TimeZone: Asia/Kolkata}
+      secrets:
+        - type: s3
+          provider: credential_chain
+          chain: config
+          profile: "{{ env_var('AWS_PROFILE', 'jo-cli') }}"
+          region: "{{ env_var('AWS_REGION', 'ap-south-1') }}"
+
+    local:   # DuckDB reading output/lake (Spark job with TRAFFIC_SINK=local)
+      type: duckdb
+      path: "{{ env_var('TRAFFIC_DUCKDB_PATH', 'output/traffic.duckdb') }}"
+      schema: main
+      threads: 2
+      settings: {TimeZone: Asia/Kolkata}

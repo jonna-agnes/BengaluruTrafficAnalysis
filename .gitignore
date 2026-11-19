@@ -2,7 +2,7 @@
 .env
 *.env
 !.env.example
-airflow/keys/
+keys/
 *.p8
 cloud/.state.json
 
@@ -13,9 +13,6 @@ traffic/target/
 traffic/dbt_packages/
 traffic/logs/
 .user.yml
-airflow/logs/
-airflow/plugins/
-airflow/config/
 logs/
 
 # Python
