@@ -1,0 +1,132 @@
+{
+  "config": "{\"version\": \"5.61\", \"activeSectionIndex\": 0, \"themeCollection\": {\"baseTheme\": {\"name\": \"CY24SU10\", \"version\": \"5.61\", \"type\": 2}}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "name": "SharedResources",
+        "type": 2,
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU10",
+            "path": "BaseThemes/CY24SU10.json",
+            "type": 202
+          }
+        ]
+      }
+    }
+  ],
+  "sections": [
+    {
+      "name": "TrafficOverview",
+      "displayName": "Traffic Overview",
+      "displayOption": 1,
+      "width": 1280,
+      "height": 720,
+      "filters": "[]",
+      "config": "{}",
+      "visualContainers": [
+        {
+          "x": 10,
+          "y": 10,
+          "z": 0,
+          "width": 250,
+          "height": 110,
+          "config": "{\"name\": \"card1\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 10, \"y\": 10, \"z\": 0, \"width\": 250, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"fact_traffic_5min.Windows\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"fact_traffic_5min\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Windows\"}, \"Name\": \"fact_traffic_5min.Windows\"}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'5-min windows'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 270,
+          "y": 10,
+          "z": 0,
+          "width": 250,
+          "height": 110,
+          "config": "{\"name\": \"card2\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 270, \"y\": 10, \"z\": 0, \"width\": 250, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"fact_traffic_5min.Total Vehicles\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"fact_traffic_5min\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Total Vehicles\"}, \"Name\": \"fact_traffic_5min.Total Vehicles\"}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Vehicles'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 530,
+          "y": 10,
+          "z": 0,
+          "width": 250,
+          "height": 110,
+          "config": "{\"name\": \"card3\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 530, \"y\": 10, \"z\": 0, \"width\": 250, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"fact_traffic_5min.Avg Speed (km/h)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"fact_traffic_5min\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Avg Speed (km/h)\"}, \"Name\": \"fact_traffic_5min.Avg Speed (km/h)\"}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Avg speed (km/h)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 790,
+          "y": 10,
+          "z": 0,
+          "width": 250,
+          "height": 110,
+          "config": "{\"name\": \"card4\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 790, \"y\": 10, \"z\": 0, \"width\": 250, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"fact_traffic_5min.Avg Occupancy %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"fact_traffic_5min\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Avg Occupancy %\"}, \"Name\": \"fact_traffic_5min.Avg Occupancy %\"}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Avg occupancy %'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 1050,
+          "y": 10,
+          "z": 0,
+          "width": 220,
+          "height": 110,
+          "config": "{\"name\": \"slicer1\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 1050, \"y\": 10, \"z\": 0, \"width\": 220, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_road_segment.area\", \"active\": true}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"dim_road_segment\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"area\"}, \"Name\": \"dim_road_segment.area\"}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Area'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 10,
+          "y": 130,
+          "z": 0,
+          "width": 830,
+          "height": 290,
+          "config": "{\"name\": \"line1\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 10, \"y\": 130, \"z\": 0, \"width\": 830, \"height\": 290}}], \"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"fact_traffic_5min.Hour\", \"active\": true}], \"Series\": [{\"queryRef\": \"dim_road_segment.area\", \"active\": true}], \"Y\": [{\"queryRef\": \"fact_traffic_5min.Avg Congestion Rank\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"fact_traffic_5min\", \"Type\": 0}, {\"Name\": \"t1\", \"Entity\": \"dim_road_segment\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Hour\"}, \"Name\": \"fact_traffic_5min.Hour\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t1\"}}, \"Property\": \"area\"}, \"Name\": \"dim_road_segment.area\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Avg Congestion Rank\"}, \"Name\": \"fact_traffic_5min.Avg Congestion Rank\"}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Congestion by hour of day'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 850,
+          "y": 130,
+          "z": 0,
+          "width": 420,
+          "height": 290,
+          "config": "{\"name\": \"donut1\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 850, \"y\": 130, \"z\": 0, \"width\": 420, \"height\": 290}}], \"singleVisual\": {\"visualType\": \"donutChart\", \"projections\": {\"Category\": [{\"queryRef\": \"fact_traffic_5min.peak_congestion_level\", \"active\": true}], \"Y\": [{\"queryRef\": \"fact_traffic_5min.Windows\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"fact_traffic_5min\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"peak_congestion_level\"}, \"Name\": \"fact_traffic_5min.peak_congestion_level\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Windows\"}, \"Name\": \"fact_traffic_5min.Windows\"}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Congestion split'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 10,
+          "y": 430,
+          "z": 0,
+          "width": 410,
+          "height": 280,
+          "config": "{\"name\": \"bar1\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 10, \"y\": 430, \"z\": 0, \"width\": 410, \"height\": 280}}], \"singleVisual\": {\"visualType\": \"clusteredBarChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_road_segment.area\", \"active\": true}], \"Y\": [{\"queryRef\": \"fact_traffic_5min.Avg Congestion Rank\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"dim_road_segment\", \"Type\": 0}, {\"Name\": \"t1\", \"Entity\": \"fact_traffic_5min\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"area\"}, \"Name\": \"dim_road_segment.area\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t1\"}}, \"Property\": \"Avg Congestion Rank\"}, \"Name\": \"fact_traffic_5min.Avg Congestion Rank\"}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Avg congestion rank by area'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 430,
+          "y": 430,
+          "z": 0,
+          "width": 410,
+          "height": 280,
+          "config": "{\"name\": \"bar2\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 430, \"y\": 430, \"z\": 0, \"width\": 410, \"height\": 280}}], \"singleVisual\": {\"visualType\": \"clusteredBarChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_road_segment.area\", \"active\": true}], \"Y\": [{\"queryRef\": \"fact_traffic_5min.Total Vehicles\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"dim_road_segment\", \"Type\": 0}, {\"Name\": \"t1\", \"Entity\": \"fact_traffic_5min\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"area\"}, \"Name\": \"dim_road_segment.area\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t1\"}}, \"Property\": \"Total Vehicles\"}, \"Name\": \"fact_traffic_5min.Total Vehicles\"}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Traffic volume by area'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 850,
+          "y": 430,
+          "z": 0,
+          "width": 420,
+          "height": 135,
+          "config": "{\"name\": \"col1\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 850, \"y\": 430, \"z\": 0, \"width\": 420, \"height\": 135}}], \"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_date.day_name\", \"active\": true}], \"Y\": [{\"queryRef\": \"fact_traffic_5min.Avg Congestion Rank\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"dim_date\", \"Type\": 0}, {\"Name\": \"t1\", \"Entity\": \"fact_traffic_5min\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"day_name\"}, \"Name\": \"dim_date.day_name\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t1\"}}, \"Property\": \"Avg Congestion Rank\"}, \"Name\": \"fact_traffic_5min.Avg Congestion Rank\"}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Congestion by day'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 850,
+          "y": 575,
+          "z": 0,
+          "width": 420,
+          "height": 135,
+          "config": "{\"name\": \"col2\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 850, \"y\": 575, \"z\": 0, \"width\": 420, \"height\": 135}}], \"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_weather.weather\", \"active\": true}], \"Y\": [{\"queryRef\": \"fact_traffic_events.Event Avg Speed (km/h)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"dim_weather\", \"Type\": 0}, {\"Name\": \"t1\", \"Entity\": \"fact_traffic_events\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"weather\"}, \"Name\": \"dim_weather.weather\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t1\"}}, \"Property\": \"Event Avg Speed (km/h)\"}, \"Name\": \"fact_traffic_events.Event Avg Speed (km/h)\"}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Avg speed by weather'\"}}}}}]}}}",
+          "filters": "[]"
+        }
+      ]
+    }
+  ]
+}

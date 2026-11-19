@@ -1,0 +1,501 @@
+{
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "en-US",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "dim_date",
+        "columns": [
+          {
+            "name": "date_key",
+            "dataType": "int64",
+            "sourceColumn": "date_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "date_day",
+            "dataType": "dateTime",
+            "sourceColumn": "date_day",
+            "summarizeBy": "none",
+            "formatString": "yyyy-mm-dd"
+          },
+          {
+            "name": "year",
+            "dataType": "int64",
+            "sourceColumn": "year",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "quarter",
+            "dataType": "int64",
+            "sourceColumn": "quarter",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "month",
+            "dataType": "int64",
+            "sourceColumn": "month",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "month_name",
+            "dataType": "string",
+            "sourceColumn": "month_name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "day_of_month",
+            "dataType": "int64",
+            "sourceColumn": "day_of_month",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "day_of_week",
+            "dataType": "int64",
+            "sourceColumn": "day_of_week",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "day_name",
+            "dataType": "string",
+            "sourceColumn": "day_name",
+            "summarizeBy": "none",
+            "sortByColumn": "day_of_week"
+          },
+          {
+            "name": "is_weekend",
+            "dataType": "boolean",
+            "sourceColumn": "is_weekend",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [],
+        "partitions": [
+          {
+            "name": "dim_date",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Jonna\\BengaluruTrafficAnalysis\\output\\powerbi\\dim_date.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"date_key\", Int64.Type}, {\"date_day\", type date}, {\"year\", Int64.Type}, {\"quarter\", Int64.Type}, {\"month\", Int64.Type}, {\"month_name\", type text}, {\"day_of_month\", Int64.Type}, {\"day_of_week\", Int64.Type}, {\"day_name\", type text}, {\"is_weekend\", type logical}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_road_segment",
+        "columns": [
+          {
+            "name": "road_segment_id",
+            "dataType": "string",
+            "sourceColumn": "road_segment_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "area",
+            "dataType": "string",
+            "sourceColumn": "area",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "road_name",
+            "dataType": "string",
+            "sourceColumn": "road_name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "latitude",
+            "dataType": "double",
+            "sourceColumn": "latitude",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "longitude",
+            "dataType": "double",
+            "sourceColumn": "longitude",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [],
+        "partitions": [
+          {
+            "name": "dim_road_segment",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Jonna\\BengaluruTrafficAnalysis\\output\\powerbi\\dim_road_segment.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"road_segment_id\", type text}, {\"area\", type text}, {\"road_name\", type text}, {\"latitude\", type number}, {\"longitude\", type number}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_weather",
+        "columns": [
+          {
+            "name": "weather_key",
+            "dataType": "string",
+            "sourceColumn": "weather_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "weather",
+            "dataType": "string",
+            "sourceColumn": "weather",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [],
+        "partitions": [
+          {
+            "name": "dim_weather",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Jonna\\BengaluruTrafficAnalysis\\output\\powerbi\\dim_weather.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"weather_key\", type text}, {\"weather\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_incident",
+        "columns": [
+          {
+            "name": "incident_key",
+            "dataType": "string",
+            "sourceColumn": "incident_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "incident_type",
+            "dataType": "string",
+            "sourceColumn": "incident_type",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [],
+        "partitions": [
+          {
+            "name": "dim_incident",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Jonna\\BengaluruTrafficAnalysis\\output\\powerbi\\dim_incident.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"incident_key\", type text}, {\"incident_type\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "fact_traffic_5min",
+        "columns": [
+          {
+            "name": "date_key",
+            "dataType": "int64",
+            "sourceColumn": "date_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "road_segment_id",
+            "dataType": "string",
+            "sourceColumn": "road_segment_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "window_start",
+            "dataType": "dateTime",
+            "sourceColumn": "window_start",
+            "summarizeBy": "none",
+            "formatString": "yyyy-mm-dd hh:nn"
+          },
+          {
+            "name": "window_end",
+            "dataType": "dateTime",
+            "sourceColumn": "window_end",
+            "summarizeBy": "none",
+            "formatString": "yyyy-mm-dd hh:nn"
+          },
+          {
+            "name": "area",
+            "dataType": "string",
+            "sourceColumn": "area",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "road_name",
+            "dataType": "string",
+            "sourceColumn": "road_name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "total_events",
+            "dataType": "int64",
+            "sourceColumn": "total_events",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "avg_vehicle_count",
+            "dataType": "double",
+            "sourceColumn": "avg_vehicle_count",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "avg_speed_kmph",
+            "dataType": "double",
+            "sourceColumn": "avg_speed_kmph",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "avg_occupancy_pct",
+            "dataType": "double",
+            "sourceColumn": "avg_occupancy_pct",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "peak_congestion_rank",
+            "dataType": "int64",
+            "sourceColumn": "peak_congestion_rank",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "peak_congestion_level",
+            "dataType": "string",
+            "sourceColumn": "peak_congestion_level",
+            "summarizeBy": "none",
+            "sortByColumn": "peak_congestion_rank"
+          },
+          {
+            "type": "calculated",
+            "name": "Hour",
+            "dataType": "int64",
+            "expression": "HOUR ( fact_traffic_5min[window_start] )",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [
+          {
+            "name": "Windows",
+            "expression": "COUNTROWS ( fact_traffic_5min )",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Total Vehicles",
+            "expression": "SUMX ( fact_traffic_5min, fact_traffic_5min[avg_vehicle_count] * fact_traffic_5min[total_events] )",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Avg Speed (km/h)",
+            "expression": "AVERAGE ( fact_traffic_5min[avg_speed_kmph] )",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Avg Occupancy %",
+            "expression": "AVERAGE ( fact_traffic_5min[avg_occupancy_pct] )",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Avg Congestion Rank",
+            "expression": "AVERAGE ( fact_traffic_5min[peak_congestion_rank] )",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Severe Windows %",
+            "expression": "DIVIDE ( CALCULATE ( [Windows], fact_traffic_5min[peak_congestion_level] = \"Severe\" ), [Windows] )",
+            "formatString": "0.0%"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "fact_traffic_5min",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Jonna\\BengaluruTrafficAnalysis\\output\\powerbi\\fact_traffic_5min.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"date_key\", Int64.Type}, {\"road_segment_id\", type text}, {\"area\", type text}, {\"road_name\", type text}, {\"total_events\", Int64.Type}, {\"avg_vehicle_count\", type number}, {\"avg_speed_kmph\", type number}, {\"avg_occupancy_pct\", type number}, {\"peak_congestion_rank\", Int64.Type}, {\"peak_congestion_level\", type text}}, \"en-US\"),",
+                "    Local = Table.TransformColumns(Typed, {{\"window_start\", each if _ = null or _ = \"\" then null else DateTimeZone.RemoveZone(DateTimeZone.FromText(Text.Replace(_, \" \", \"T\"))), type datetime}, {\"window_end\", each if _ = null or _ = \"\" then null else DateTimeZone.RemoveZone(DateTimeZone.FromText(Text.Replace(_, \" \", \"T\"))), type datetime}})",
+                "in",
+                "    Local"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "fact_traffic_events",
+        "columns": [
+          {
+            "name": "event_id",
+            "dataType": "string",
+            "sourceColumn": "event_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "date_key",
+            "dataType": "int64",
+            "sourceColumn": "date_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "road_segment_id",
+            "dataType": "string",
+            "sourceColumn": "road_segment_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "weather_key",
+            "dataType": "string",
+            "sourceColumn": "weather_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "incident_key",
+            "dataType": "string",
+            "sourceColumn": "incident_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "event_ts",
+            "dataType": "dateTime",
+            "sourceColumn": "event_ts",
+            "summarizeBy": "none",
+            "formatString": "yyyy-mm-dd hh:nn"
+          },
+          {
+            "name": "vehicle_count",
+            "dataType": "int64",
+            "sourceColumn": "vehicle_count",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "avg_speed_kmph",
+            "dataType": "double",
+            "sourceColumn": "avg_speed_kmph",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "occupancy_pct",
+            "dataType": "double",
+            "sourceColumn": "occupancy_pct",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "congestion_level",
+            "dataType": "string",
+            "sourceColumn": "congestion_level",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "incident_duration_minutes",
+            "dataType": "int64",
+            "sourceColumn": "incident_duration_minutes",
+            "summarizeBy": "sum"
+          }
+        ],
+        "measures": [
+          {
+            "name": "Event Avg Speed (km/h)",
+            "expression": "AVERAGE ( fact_traffic_events[avg_speed_kmph] )",
+            "formatString": "0.0"
+          },
+          {
+            "name": "Events",
+            "expression": "COUNTROWS ( fact_traffic_events )",
+            "formatString": "#,0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "fact_traffic_events",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Jonna\\BengaluruTrafficAnalysis\\output\\powerbi\\fact_traffic_events.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"event_id\", type text}, {\"date_key\", Int64.Type}, {\"road_segment_id\", type text}, {\"weather_key\", type text}, {\"incident_key\", type text}, {\"vehicle_count\", Int64.Type}, {\"avg_speed_kmph\", type number}, {\"occupancy_pct\", type number}, {\"congestion_level\", type text}, {\"incident_duration_minutes\", Int64.Type}}, \"en-US\"),",
+                "    Local = Table.TransformColumns(Typed, {{\"event_ts\", each if _ = null or _ = \"\" then null else DateTimeZone.RemoveZone(DateTimeZone.FromText(Text.Replace(_, \" \", \"T\"))), type datetime}})",
+                "in",
+                "    Local"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "fact_traffic_5min_date_key__dim_date",
+        "fromTable": "fact_traffic_5min",
+        "fromColumn": "date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key"
+      },
+      {
+        "name": "fact_traffic_5min_road_segment_id__dim_road_segment",
+        "fromTable": "fact_traffic_5min",
+        "fromColumn": "road_segment_id",
+        "toTable": "dim_road_segment",
+        "toColumn": "road_segment_id"
+      },
+      {
+        "name": "fact_traffic_events_date_key__dim_date",
+        "fromTable": "fact_traffic_events",
+        "fromColumn": "date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key"
+      },
+      {
+        "name": "fact_traffic_events_road_segment_id__dim_road_segment",
+        "fromTable": "fact_traffic_events",
+        "fromColumn": "road_segment_id",
+        "toTable": "dim_road_segment",
+        "toColumn": "road_segment_id"
+      },
+      {
+        "name": "fact_traffic_events_weather_key__dim_weather",
+        "fromTable": "fact_traffic_events",
+        "fromColumn": "weather_key",
+        "toTable": "dim_weather",
+        "toColumn": "weather_key"
+      },
+      {
+        "name": "fact_traffic_events_incident_key__dim_incident",
+        "fromTable": "fact_traffic_events",
+        "fromColumn": "incident_key",
+        "toTable": "dim_incident",
+        "toColumn": "incident_key"
+      }
+    ]
+  }
+}
