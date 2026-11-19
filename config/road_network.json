@@ -1,0 +1,56 @@
+{
+  "description": "Simulated Bengaluru road network: 10 areas, 2 monitored road segments each. Coordinates are approximate; capacities and demand are modelling assumptions, not measurements.",
+  "area_profiles": {
+    "Silk Board": "junction",
+    "Hebbal": "junction",
+    "Outer Ring Road": "it_corridor",
+    "Marathahalli": "it_corridor",
+    "Whitefield": "it_corridor",
+    "Electronic City": "it_corridor",
+    "Koramangala": "commercial",
+    "Indiranagar": "commercial",
+    "MG Road": "commercial",
+    "Yeshwanthpur": "transit_hub"
+  },
+  "hourly_demand": {
+    "junction": {
+      "weekday": [0.10, 0.06, 0.05, 0.05, 0.08, 0.20, 0.45, 0.80, 1.00, 1.02, 0.92, 0.84, 0.80, 0.80, 0.82, 0.86, 0.95, 1.05, 1.08, 1.00, 0.80, 0.55, 0.32, 0.18],
+      "weekend": [0.12, 0.08, 0.06, 0.05, 0.06, 0.10, 0.20, 0.35, 0.52, 0.66, 0.74, 0.78, 0.78, 0.76, 0.74, 0.74, 0.78, 0.82, 0.84, 0.78, 0.64, 0.46, 0.30, 0.18]
+    },
+    "it_corridor": {
+      "weekday": [0.08, 0.05, 0.04, 0.04, 0.06, 0.15, 0.35, 0.68, 0.95, 1.00, 0.85, 0.70, 0.64, 0.64, 0.68, 0.76, 0.90, 1.00, 1.02, 0.90, 0.68, 0.45, 0.25, 0.14],
+      "weekend": [0.08, 0.05, 0.04, 0.04, 0.05, 0.08, 0.14, 0.24, 0.36, 0.46, 0.52, 0.55, 0.56, 0.55, 0.54, 0.54, 0.56, 0.60, 0.62, 0.58, 0.48, 0.34, 0.22, 0.12]
+    },
+    "commercial": {
+      "weekday": [0.08, 0.05, 0.04, 0.04, 0.05, 0.10, 0.22, 0.42, 0.62, 0.72, 0.74, 0.74, 0.76, 0.74, 0.72, 0.72, 0.76, 0.84, 0.90, 0.92, 0.86, 0.68, 0.42, 0.20],
+      "weekend": [0.12, 0.08, 0.05, 0.04, 0.04, 0.06, 0.12, 0.22, 0.38, 0.54, 0.66, 0.74, 0.78, 0.78, 0.76, 0.76, 0.80, 0.88, 0.94, 0.94, 0.86, 0.70, 0.48, 0.26]
+    },
+    "transit_hub": {
+      "weekday": [0.12, 0.08, 0.06, 0.06, 0.12, 0.28, 0.50, 0.74, 0.90, 0.92, 0.84, 0.78, 0.74, 0.72, 0.74, 0.78, 0.86, 0.94, 0.96, 0.88, 0.70, 0.50, 0.32, 0.20],
+      "weekend": [0.14, 0.10, 0.08, 0.07, 0.10, 0.18, 0.32, 0.48, 0.60, 0.68, 0.72, 0.72, 0.70, 0.68, 0.68, 0.70, 0.74, 0.78, 0.78, 0.72, 0.60, 0.44, 0.30, 0.20]
+    }
+  },
+  "day_factor": {"Monday": 1.00, "Tuesday": 1.02, "Wednesday": 1.02, "Thursday": 1.01, "Friday": 1.04, "Saturday": 1.00, "Sunday": 0.88},
+  "segments": [
+    {"road_segment_id": "SB-01", "area": "Silk Board", "road_name": "Hosur Road at Silk Board Junction", "latitude": 12.9177, "longitude": 77.6238, "road_type": "Junction", "lane_count": 6, "speed_limit_kmph": 50, "capacity_vehicles_per_minute": 95, "demand_scale": 1.12},
+    {"road_segment_id": "SB-02", "area": "Silk Board", "road_name": "ORR, Silk Board to HSR Layout", "latitude": 12.9135, "longitude": 77.6370, "road_type": "Arterial", "lane_count": 4, "speed_limit_kmph": 50, "capacity_vehicles_per_minute": 70, "demand_scale": 1.06},
+    {"road_segment_id": "HB-01", "area": "Hebbal", "road_name": "Bellary Road at Hebbal Flyover", "latitude": 13.0358, "longitude": 77.5970, "road_type": "Flyover", "lane_count": 6, "speed_limit_kmph": 60, "capacity_vehicles_per_minute": 110, "demand_scale": 1.02},
+    {"road_segment_id": "HB-02", "area": "Hebbal", "road_name": "ORR, Hebbal to Nagawara", "latitude": 13.0430, "longitude": 77.6150, "road_type": "Arterial", "lane_count": 4, "speed_limit_kmph": 60, "capacity_vehicles_per_minute": 75, "demand_scale": 0.94},
+    {"road_segment_id": "OR-01", "area": "Outer Ring Road", "road_name": "ORR at Bellandur", "latitude": 12.9260, "longitude": 77.6762, "road_type": "Arterial", "lane_count": 6, "speed_limit_kmph": 60, "capacity_vehicles_per_minute": 90, "demand_scale": 1.04},
+    {"road_segment_id": "OR-02", "area": "Outer Ring Road", "road_name": "ORR at Devarabeesanahalli", "latitude": 12.9352, "longitude": 77.6880, "road_type": "Arterial", "lane_count": 6, "speed_limit_kmph": 60, "capacity_vehicles_per_minute": 90, "demand_scale": 0.96},
+    {"road_segment_id": "MH-01", "area": "Marathahalli", "road_name": "ORR at Marathahalli Bridge", "latitude": 12.9569, "longitude": 77.7011, "road_type": "Junction", "lane_count": 4, "speed_limit_kmph": 50, "capacity_vehicles_per_minute": 70, "demand_scale": 1.06},
+    {"road_segment_id": "MH-02", "area": "Marathahalli", "road_name": "Old Airport Road, Marathahalli", "latitude": 12.9591, "longitude": 77.6974, "road_type": "Arterial", "lane_count": 4, "speed_limit_kmph": 50, "capacity_vehicles_per_minute": 60, "demand_scale": 0.95},
+    {"road_segment_id": "WF-01", "area": "Whitefield", "road_name": "Whitefield Main Road", "latitude": 12.9698, "longitude": 77.7500, "road_type": "Arterial", "lane_count": 4, "speed_limit_kmph": 50, "capacity_vehicles_per_minute": 55, "demand_scale": 0.92},
+    {"road_segment_id": "WF-02", "area": "Whitefield", "road_name": "ITPL Road at Hoodi", "latitude": 12.9910, "longitude": 77.7160, "road_type": "Arterial", "lane_count": 4, "speed_limit_kmph": 50, "capacity_vehicles_per_minute": 55, "demand_scale": 0.88},
+    {"road_segment_id": "EC-01", "area": "Electronic City", "road_name": "Electronic City Elevated Expressway", "latitude": 12.8710, "longitude": 77.6560, "road_type": "Expressway", "lane_count": 4, "speed_limit_kmph": 80, "capacity_vehicles_per_minute": 100, "demand_scale": 0.82},
+    {"road_segment_id": "EC-02", "area": "Electronic City", "road_name": "Hosur Road at Electronic City Phase 1", "latitude": 12.8450, "longitude": 77.6600, "road_type": "Arterial", "lane_count": 4, "speed_limit_kmph": 50, "capacity_vehicles_per_minute": 60, "demand_scale": 0.90},
+    {"road_segment_id": "KM-01", "area": "Koramangala", "road_name": "Sarjapur Road, Koramangala", "latitude": 12.9250, "longitude": 77.6400, "road_type": "Arterial", "lane_count": 4, "speed_limit_kmph": 40, "capacity_vehicles_per_minute": 50, "demand_scale": 0.92},
+    {"road_segment_id": "KM-02", "area": "Koramangala", "road_name": "80 Feet Road, Koramangala", "latitude": 12.9352, "longitude": 77.6245, "road_type": "Collector", "lane_count": 2, "speed_limit_kmph": 40, "capacity_vehicles_per_minute": 30, "demand_scale": 0.86},
+    {"road_segment_id": "IN-01", "area": "Indiranagar", "road_name": "100 Feet Road, Indiranagar", "latitude": 12.9719, "longitude": 77.6412, "road_type": "Arterial", "lane_count": 4, "speed_limit_kmph": 40, "capacity_vehicles_per_minute": 50, "demand_scale": 0.88},
+    {"road_segment_id": "IN-02", "area": "Indiranagar", "road_name": "CMH Road, Indiranagar", "latitude": 12.9784, "longitude": 77.6408, "road_type": "Collector", "lane_count": 2, "speed_limit_kmph": 40, "capacity_vehicles_per_minute": 28, "demand_scale": 0.82},
+    {"road_segment_id": "MG-01", "area": "MG Road", "road_name": "MG Road at Trinity Circle", "latitude": 12.9730, "longitude": 77.6170, "road_type": "Arterial", "lane_count": 4, "speed_limit_kmph": 40, "capacity_vehicles_per_minute": 55, "demand_scale": 0.78},
+    {"road_segment_id": "MG-02", "area": "MG Road", "road_name": "Brigade Road", "latitude": 12.9716, "longitude": 77.6070, "road_type": "Collector", "lane_count": 2, "speed_limit_kmph": 30, "capacity_vehicles_per_minute": 25, "demand_scale": 0.76},
+    {"road_segment_id": "YP-01", "area": "Yeshwanthpur", "road_name": "Tumkur Road at Yeshwanthpur", "latitude": 13.0280, "longitude": 77.5400, "road_type": "Highway", "lane_count": 6, "speed_limit_kmph": 60, "capacity_vehicles_per_minute": 100, "demand_scale": 0.92},
+    {"road_segment_id": "YP-02", "area": "Yeshwanthpur", "road_name": "Yeshwanthpur Circle", "latitude": 13.0230, "longitude": 77.5500, "road_type": "Junction", "lane_count": 4, "speed_limit_kmph": 40, "capacity_vehicles_per_minute": 60, "demand_scale": 0.90}
+  ]
+}

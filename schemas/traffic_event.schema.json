@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TrafficEvent",
+  "description": "One reading from one road segment for one interval, as produced by the simulator and sent through Kafka.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id", "event_timestamp", "area", "road_segment_id", "road_name", "latitude", "longitude",
+    "vehicle_count", "avg_speed_kmph", "occupancy_pct", "congestion_level", "weather", "incident_type",
+    "incident_duration_minutes", "is_weekend", "hour_of_day", "day_of_week", "data_source",
+    "generated_at", "anomaly_type"
+  ],
+  "properties": {
+    "event_id":                  {"type": "string", "pattern": "^[A-Z]{2}-[0-9]{2}-[0-9]{12}$", "description": "<road_segment_id>-<YYYYMMDDHHMM> in IST; unique per segment and interval"},
+    "event_timestamp":           {"type": "string", "format": "date-time", "description": "Interval start, ISO-8601 with +05:30"},
+    "area":                      {"type": ["string", "null"]},
+    "road_segment_id":           {"type": "string", "pattern": "^[A-Z]{2}-[0-9]{2}$"},
+    "road_name":                 {"type": ["string", "null"]},
+    "latitude":                  {"type": "number", "minimum": 12.7, "maximum": 13.2},
+    "longitude":                 {"type": "number", "minimum": 77.4, "maximum": 77.9},
+    "vehicle_count":             {"type": "integer", "minimum": 0},
+    "avg_speed_kmph":            {"type": "number", "minimum": 0},
+    "occupancy_pct":             {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+    "congestion_level":          {"enum": ["Low", "Moderate", "High", "Severe"]},
+    "weather":                   {"enum": ["Clear", "Cloudy", "Rain", "Heavy_Rain"]},
+    "incident_type":             {"enum": ["None", "Vehicle_Breakdown", "Accident", "Waterlogging"]},
+    "incident_duration_minutes": {"type": "integer", "minimum": 0},
+    "is_weekend":                {"type": "boolean"},
+    "hour_of_day":               {"type": "integer", "minimum": 0, "maximum": 23},
+    "day_of_week":               {"enum": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]},
+    "data_source":               {"const": "simulator"},
+    "generated_at":              {"type": "string", "format": "date-time", "description": "When the reading was emitted (after the interval ends)"},
+    "anomaly_type":              {"enum": ["None", "Duplicate", "Missing_Field", "Invalid_Value"], "description": "Ground truth for injected data-quality problems"}
+  }
+}
