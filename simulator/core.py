@@ -44,11 +44,13 @@ WEATHER_TRANSITIONS = np.array([
 WEATHER_CAPACITY = {"Clear": 1.00, "Cloudy": 0.97, "Rain": 0.84, "Heavy_Rain": 0.62}
 WEATHER_SPEED = {"Clear": 1.00, "Cloudy": 0.98, "Rain": 0.88, "Heavy_Rain": 0.72}
 
-# incident type -> (chance per segment-hour, capacity factor, duration range in minutes)
+# incident type -> (chance per segment-hour, capacity factor, speed factor, duration range in minutes)
+# Capacity loss bites at busy times; the speed factor slows everyone even on an empty road
+# (rubbernecking at an accident, wading through waterlogging).
 INCIDENTS = {
-    "Vehicle_Breakdown": (0.006, 0.75, (15, 60)),
-    "Accident": (0.002, 0.50, (30, 120)),
-    "Waterlogging": (0.060, 0.55, (45, 150)),  # only during Heavy_Rain
+    "Vehicle_Breakdown": (0.006, 0.75, 0.85, (15, 60)),
+    "Accident": (0.002, 0.50, 0.70, (30, 120)),
+    "Waterlogging": (0.060, 0.55, 0.55, (45, 150)),  # only during Heavy_Rain
 }
 
 VEHICLE_LENGTH_M = 6.5  # effective length (vehicle + gap) seen by a loop detector
@@ -118,13 +120,14 @@ def simulate(cfg: SimConfig = SimConfig(), network: dict | None = None) -> pd.Da
             if incident_left <= 0:
                 incident = None
                 if t.minute == 0:
-                    for name, (p, _, (lo, hi)) in INCIDENTS.items():
+                    for name, (p, _, _, (lo, hi)) in INCIDENTS.items():
                         if name == "Waterlogging" and wx != "Heavy_Rain":
                             continue
                         if rng.random() < p:
                             incident, incident_left = name, int(rng.integers(lo, hi + 1))
                             break
             incident_factor = INCIDENTS[incident][1] if incident else 1.0
+            incident_speed = INCIDENTS[incident][2] if incident else 1.0
 
             drift = 0.85 * drift + rng.normal(0, 0.03)                         # slowly varying noise
             demand = (cap_per_step * PEAK_SATURATION * base * net["day_factor"][t.strftime("%A")]
@@ -134,7 +137,7 @@ def simulate(cfg: SimConfig = SimConfig(), network: dict | None = None) -> pd.Da
             served = min(demand, capacity) * rng.normal(1.0, 0.04)
             vehicles = max(0, int(round(served)))
 
-            speed = free_flow * WEATHER_SPEED[wx] / (1 + 0.15 * x ** 4) * rng.normal(1.0, 0.03)
+            speed = free_flow * WEATHER_SPEED[wx] * incident_speed / (1 + 0.15 * x ** 4) * rng.normal(1.0, 0.03)
             speed = float(np.clip(speed, 3.0, seg["speed_limit_kmph"]))
             flow_per_hour_lane = vehicles * (60 / cfg.interval_minutes) / seg["lane_count"]
             density = flow_per_hour_lane / speed                              # vehicles per km per lane
