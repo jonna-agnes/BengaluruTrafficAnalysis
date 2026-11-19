@@ -34,7 +34,7 @@ Bengaluru's junctions, such as Silk Board, Hebbal and Marathahalli, jam every da
 | Output | What it shows |
 |---|---|
 | 🌐 [**Streamlit app**](https://bengalurutrafficanalysis-cvub6brckcyxqvj8s9arvx.streamlit.app/) | Interactive dashboard, segment map, 30-min forecast, AI briefing |
-| 📈 **Power BI report** | `powerbi/BengaluruTraffic.pbip`, ready to open on the star schema |
+| 📈 **Power BI report** | `powerbi/BengaluruTraffic.pbip`, ready to open on the star schema (click **Refresh**; if it reports a "cyclic reference", click Refresh once more) |
 | 🔮 **Congestion forecast** | **86.7%** accuracy, against 82.4% for a "no change" baseline |
 | 🤖 **AI briefing** | A plain-English operations report written by an LLM from the data |
 
