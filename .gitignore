@@ -1,0 +1,32 @@
+# Secrets and local cloud state
+.env
+*.env
+!.env.example
+airflow/keys/
+*.p8
+cloud/.state.json
+
+# Generated data and build output
+output/
+models/*.joblib
+traffic/target/
+traffic/dbt_packages/
+traffic/logs/
+.user.yml
+airflow/logs/
+airflow/plugins/
+airflow/config/
+logs/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

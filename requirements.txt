@@ -1,0 +1,28 @@
+# Core: simulator, batch pipeline, ML
+pandas>=2.1
+numpy>=1.26
+pyarrow>=14.0
+duckdb>=1.1
+scikit-learn>=1.4
+joblib>=1.3
+
+# Cloud: AWS + Snowflake provisioning and loading
+boto3>=1.34
+snowflake-connector-python>=3.12
+cryptography>=42
+python-dotenv>=1.0
+
+# Modelling
+dbt-snowflake>=1.9
+dbt-duckdb>=1.9
+
+# Streaming (optional: needs Java 17 and Kafka)
+confluent-kafka>=2.3
+pyspark>=4.0
+
+# GenAI
+requests>=2.31
+
+# Tests
+pytest>=8.0
+jsonschema>=4.20
