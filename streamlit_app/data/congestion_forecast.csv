@@ -1,21 +1,21 @@
 road_segment_id,area,road_name,event_ts,forecast_for,avg_speed_kmph,occupancy_pct,weather,incident_type,congestion_level,forecast_congestion_level,forecast_confidence,trend,p_high,p_low,p_moderate,p_severe
-SB-01,Silk Board,Hosur Road at Silk Board Junction,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,10.4,50.4,Rain,None,Severe,Severe,0.911,stable,0.084,0.002,0.003,0.911
-MH-01,Marathahalli,ORR at Marathahalli Bridge,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,14.7,38.1,Rain,None,Severe,High,0.977,improving,0.977,0.003,0.01,0.01
-SB-02,Silk Board,"ORR, Silk Board to HSR Layout",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,8.2,71.9,Rain,None,Severe,High,0.956,improving,0.956,0.002,0.004,0.038
-HB-01,Hebbal,Bellary Road at Hebbal Flyover,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,18.1,33.1,Rain,None,High,High,0.951,stable,0.951,0.003,0.022,0.023
-HB-02,Hebbal,"ORR, Hebbal to Nagawara",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,19.7,30.4,Rain,None,High,High,0.937,stable,0.937,0.005,0.049,0.009
-OR-02,Outer Ring Road,ORR at Devarabeesanahalli,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,17.0,29.5,Rain,None,Severe,High,0.927,improving,0.927,0.003,0.037,0.033
-OR-01,Outer Ring Road,ORR at Bellandur,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,14.3,33.3,Rain,None,Severe,High,0.91,improving,0.91,0.003,0.039,0.048
-WF-02,Whitefield,ITPL Road at Hoodi,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,19.6,22.3,Rain,None,High,High,0.878,stable,0.878,0.004,0.114,0.004
-MH-02,Marathahalli,"Old Airport Road, Marathahalli",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,13.9,33.9,Rain,None,Severe,High,0.779,improving,0.779,0.008,0.096,0.116
-YP-02,Yeshwanthpur,Yeshwanthpur Circle,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,12.8,38.3,Rain,None,High,High,0.775,stable,0.775,0.006,0.191,0.028
-WF-01,Whitefield,Whitefield Main Road,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,16.2,27.9,Rain,None,High,High,0.747,stable,0.747,0.011,0.216,0.026
-YP-01,Yeshwanthpur,Tumkur Road at Yeshwanthpur,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,24.8,22.4,Rain,None,High,High,0.653,stable,0.653,0.004,0.331,0.011
-EC-02,Electronic City,Hosur Road at Electronic City Phase 1,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,18.0,28.3,Rain,None,High,High,0.556,stable,0.556,0.014,0.262,0.168
-KM-01,Koramangala,"Sarjapur Road, Koramangala",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,25.1,16.6,Rain,None,Moderate,Moderate,0.777,stable,0.012,0.208,0.777,0.003
-IN-01,Indiranagar,"100 Feet Road, Indiranagar",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,24.5,16.8,Rain,None,Moderate,Moderate,0.757,stable,0.011,0.229,0.757,0.004
-MG-01,MG Road,MG Road at Trinity Circle,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,27.6,15.9,Rain,None,Moderate,Moderate,0.599,stable,0.018,0.376,0.599,0.007
-KM-02,Koramangala,"80 Feet Road, Koramangala",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,23.0,22.8,Rain,None,Moderate,Moderate,0.569,stable,0.019,0.41,0.569,0.003
-EC-01,Electronic City,Electronic City Elevated Expressway,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,37.2,21.8,Rain,None,High,Moderate,0.567,improving,0.409,0.01,0.567,0.014
-IN-02,Indiranagar,"CMH Road, Indiranagar",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,30.0,15.6,Rain,None,Low,Moderate,0.562,worsening,0.004,0.43,0.562,0.004
-MG-02,MG Road,Brigade Road,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,20.9,18.1,Rain,None,Moderate,Low,0.606,improving,0.006,0.606,0.385,0.003
+SB-01,Silk Board,Hosur Road at Silk Board Junction,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,10.4,50.4,Rain,None,Severe,Severe,0.954,stable,0.045,0.0,0.001,0.954
+HB-01,Hebbal,Bellary Road at Hebbal Flyover,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,18.1,33.1,Rain,None,High,High,0.983,stable,0.983,0.001,0.008,0.008
+MH-01,Marathahalli,ORR at Marathahalli Bridge,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,14.7,38.1,Rain,None,Severe,High,0.965,improving,0.965,0.002,0.015,0.018
+HB-02,Hebbal,"ORR, Hebbal to Nagawara",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,19.7,30.4,Rain,None,High,High,0.948,stable,0.948,0.001,0.044,0.007
+SB-02,Silk Board,"ORR, Silk Board to HSR Layout",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,8.2,71.9,Rain,None,Severe,High,0.936,improving,0.936,0.0,0.001,0.062
+OR-02,Outer Ring Road,ORR at Devarabeesanahalli,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,17.0,29.5,Rain,None,Severe,High,0.926,improving,0.926,0.001,0.041,0.032
+OR-01,Outer Ring Road,ORR at Bellandur,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,14.3,33.3,Rain,None,Severe,High,0.855,improving,0.855,0.001,0.046,0.099
+WF-01,Whitefield,Whitefield Main Road,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,16.2,27.9,Rain,None,High,High,0.829,stable,0.829,0.003,0.116,0.052
+MH-02,Marathahalli,"Old Airport Road, Marathahalli",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,13.9,33.9,Rain,None,Severe,High,0.821,improving,0.821,0.002,0.097,0.08
+WF-02,Whitefield,ITPL Road at Hoodi,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,19.6,22.3,Rain,None,High,High,0.711,stable,0.711,0.004,0.265,0.02
+YP-02,Yeshwanthpur,Yeshwanthpur Circle,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,12.8,38.3,Rain,None,High,High,0.624,stable,0.624,0.002,0.343,0.032
+YP-01,Yeshwanthpur,Tumkur Road at Yeshwanthpur,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,24.8,22.4,Rain,None,High,High,0.539,stable,0.539,0.003,0.448,0.011
+EC-02,Electronic City,Hosur Road at Electronic City Phase 1,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,18.0,28.3,Rain,None,High,High,0.46,stable,0.46,0.005,0.419,0.117
+EC-01,Electronic City,Electronic City Elevated Expressway,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,37.2,21.8,Rain,None,High,Moderate,0.677,improving,0.307,0.008,0.677,0.008
+KM-02,Koramangala,"80 Feet Road, Koramangala",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,23.0,22.8,Rain,None,Moderate,Moderate,0.586,stable,0.029,0.384,0.586,0.001
+KM-01,Koramangala,"Sarjapur Road, Koramangala",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,25.1,16.6,Rain,None,Moderate,Moderate,0.575,stable,0.005,0.419,0.575,0.001
+MG-02,MG Road,Brigade Road,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,20.9,18.1,Rain,None,Moderate,Low,0.761,improving,0.003,0.761,0.236,0.0
+MG-01,MG Road,MG Road at Trinity Circle,2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,27.6,15.9,Rain,None,Moderate,Low,0.672,improving,0.007,0.672,0.314,0.006
+IN-02,Indiranagar,"CMH Road, Indiranagar",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,30.0,15.6,Rain,None,Low,Low,0.52,stable,0.003,0.52,0.475,0.002
+IN-01,Indiranagar,"100 Feet Road, Indiranagar",2026-07-07 08:30:00+05:30,2026-07-07 09:00:00+05:30,24.5,16.8,Rain,None,Moderate,Low,0.506,improving,0.009,0.506,0.484,0.001

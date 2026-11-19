@@ -8,7 +8,7 @@
 ![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?logo=powerbi&logoColor=black)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)
 
-An end-to-end data platform that turns road-traffic readings into **dashboards, a 30-minute congestion forecast and AI-written traffic reports**.
+An end-to-end data platform that turns road-traffic readings into **dashboards, a 30-minute congestion forecast, a trip planner and AI-written traffic reports**.
 
 ### ▶ [Live app](https://bengalurutrafficanalysis-cvub6brckcyxqvj8s9arvx.streamlit.app/)
 
@@ -20,7 +20,7 @@ An end-to-end data platform that turns road-traffic readings into **dashboards, 
 
 Bengaluru's junctions, such as Silk Board, Hebbal and Marathahalli, jam every day. Traffic teams get thousands of sensor readings, but:
 - the raw data is **messy**, with duplicates, missing fields and impossible values,
-- it can't answer **"where, when and why"** questions until it's cleaned and modelled,
+- it can't answer **"where, when and why"** until it's cleaned and modelled,
 - teams only see congestion **after** it happens.
 
 **Goal:** a cloud pipeline that cleans, stores and models traffic data, then shows **where and when congestion happens, why, and what the next 30 minutes look like.**
@@ -31,34 +31,41 @@ Bengaluru's junctions, such as Silk Board, Hebbal and Marathahalli, jam every da
 
 ## 📊 Output
 
-| Output | What it shows |
-|---|---|
-| 🌐 [**Streamlit app**](https://bengalurutrafficanalysis-cvub6brckcyxqvj8s9arvx.streamlit.app/) | Interactive dashboard, segment map, 30-min forecast, AI briefing |
-| 📈 **Power BI report** | `powerbi/BengaluruTraffic.pbip`, ready to open on the star schema (click **Refresh**; if it reports a "cyclic reference", click Refresh once more) |
-| 🔮 **Congestion forecast** | **86.7%** accuracy, against 82.4% for a "no change" baseline |
-| 🤖 **AI briefing** | A plain-English operations report written by an LLM from the data |
+**[Live Streamlit app](https://bengalurutrafficanalysis-cvub6brckcyxqvj8s9arvx.streamlit.app/)**, with one tab per use case:
 
-**30-minute forecast**
+| Tab | What it gives |
+|---|---|
+| 📊 Overview | KPIs, rush-hour curve, congestion split, area rankings, weather and incident impact |
+| 🚨 Next 30 min | Forecast alerts ("13 of 20 roads High/Severe in 30 min"), road map, per-road forecast with trend |
+| 🔥 Hotspots | Area × hour heatmap and a ranked road list with each road's worst hour |
+| 🧭 Trip planner | Best and worst time to travel for any area or road, weekday or weekend |
+| 🤖 AI briefing | Plain-English operations report written by an LLM from the data |
+
+**30-minute forecast:** **86.4%** accurate, against 82.4% for a "no change" baseline.
 ![Forecast](docs/images/streamlit_forecast.png)
 
-**Power BI**
+**Trip planner**
+![Trip planner](docs/images/streamlit_planner.png)
+
+**Power BI report** (`powerbi/BengaluruTraffic.pbip`, ready to open)
 ![Power BI](docs/images/powerbi_dashboard.png)
 
 **Key findings (7 days, 20 road segments):**
-- **39,997** five-minute windows, **8.5M** vehicles, average speed **38.2 km/h**
+- **39,997** five-minute windows, **8.5M** vehicles, average speed **38.1 km/h**
 - **Silk Board** is the most congested area, and **MG Road** the least. **Hebbal** carries the most traffic.
-- The worst hour is **8 AM on weekdays**: 46% of readings High/Severe, at 25.7 km/h.
+- The worst hour is **8 AM on weekdays**, with 46% of readings High/Severe. The evening peak is 5–7 PM.
 - **Rain** more than triples High/Severe congestion (17.9% against 5.2% in clear weather).
+- **Accidents** cut average speed to **16 km/h** and waterlogging to **23 km/h**, against 38 km/h normally.
 
 ---
 
 ## 🎯 Use cases
 
-- **Traffic control rooms:** spot jams 30 minutes early and deploy police or adjust signals.
-- **City planners:** find chronic hotspots to prioritize flyovers, lanes and bus routes.
-- **Emergency services:** route ambulances around roads forecast to jam.
-- **Logistics companies:** schedule deliveries outside peak hours and areas.
-- **Commuters (through apps):** pick the best time and route.
+- **Traffic control rooms** (*Next 30 min*): see which roads will jam in 30 minutes and act first.
+- **City planners** (*Hotspots*): find the roads and hours that jam every day.
+- **Commuters and logistics companies** (*Trip planner*): pick the best time to travel or deliver.
+- **Emergency services** (*Next 30 min*): route around roads forecast to be Severe.
+- **Analysts** (*Power BI, CSV download*): explore the star schema and filtered data.
 
 ---
 
@@ -74,7 +81,7 @@ flowchart LR
     F --> G[Power BI]
     F --> H[Streamlit]
     F --> I[ML forecast] --> J[LLM briefing]
-    K[Airflow] -.every 5 min.-> E
+    K[cloud.pipeline] -.every 5 min.-> E
     K -.-> F
 ```
 
@@ -83,7 +90,7 @@ flowchart LR
 3. **Store:** clean data lands in **Amazon S3** as Parquet (`raw/` and `aggregated/`).
 4. **Load:** **Snowflake** reads S3 through a storage integration (an IAM role, no stored keys). `COPY INTO` loads only new files.
 5. **Model:** **dbt** builds a star schema (staging → intermediate → marts) with 19 data tests: unique keys, valid values, relationships and physical ranges.
-6. **Orchestrate:** an **Airflow** DAG runs load + dbt every 5 minutes.
+6. **Schedule:** `python -m cloud.pipeline --every 5` loads new files and rebuilds dbt every 5 minutes.
 7. **Serve:** **Power BI** and **Streamlit** dashboards, a **scikit-learn** 30-minute forecast, and an **LLM** briefing grounded only in computed facts.
 8. **CI/CD:** **GitHub Actions** tests the app on every push; **Streamlit Cloud** redeploys it automatically.
 
@@ -96,12 +103,11 @@ flowchart LR
 | Layer | Tools |
 |---|---|
 | Language | Python, SQL |
-| Streaming | Apache Kafka, PySpark Structured Streaming |
+| Streaming | Apache Kafka, PySpark Structured Streaming, Docker |
 | Batch | DuckDB |
 | Cloud storage | Amazon S3, AWS IAM |
 | Warehouse | Snowflake |
 | Transformation | dbt |
-| Orchestration | Apache Airflow, Docker |
 | BI and apps | Power BI, Streamlit, Plotly |
 | ML and AI | scikit-learn, LLM via OpenRouter |
 | Quality and CI/CD | pytest, dbt tests, GitHub Actions |
@@ -116,14 +122,13 @@ pip install -r requirements.txt
 python -m simulator                       # 1. generate 7 days of events
 python -m cloud.setup all                 # 2. create S3 + IAM + Snowflake (needs .env, see .env.example)
 python -m cloud.batch_load                # 3. clean + aggregate -> S3
-python -m cloud.setup load                # 4. S3 -> Snowflake
-dbt build --project-dir traffic --profiles-dir airflow/dbt_profiles   # 5. star schema + tests
-python -m ml.train && python -m ml.predict                            # 6. forecast
-streamlit run streamlit_app/app.py                                    # 7. app
+python -m cloud.pipeline                  # 4. S3 -> Snowflake + dbt build and tests (add --every 5 to schedule)
+python -m ml.train && python -m ml.predict                            # 5. forecast
+streamlit run streamlit_app/app.py                                    # 6. app
 ```
 
-Streaming: `docker compose -f streaming/docker-compose.yml up -d`, then `python -m streaming.spark_job` and `python -m streaming.producer`. Airflow: `cd airflow && docker compose up -d --build`. Tests: `python -m pytest`.
+Streaming instead of batch: `docker compose -f streaming/docker-compose.yml up -d`, then `python -m streaming.spark_job` and `python -m streaming.producer`. Tests: `python -m pytest`.
 
 ```
-simulator/  streaming/  cloud/  traffic/ (dbt)  airflow/  ml/  genai/  powerbi/  streamlit_app/  tests/
+simulator/  streaming/  cloud/  traffic/ (dbt)  ml/  genai/  powerbi/  streamlit_app/  tests/
 ```
