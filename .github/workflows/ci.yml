@@ -1,0 +1,26 @@
+# CI: check the Streamlit app on every push and pull request.
+# CD: Streamlit Community Cloud redeploys the live app automatically when main changes.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: streamlit_app/requirements.txt
+
+      - name: Install app dependencies
+        run: pip install -r streamlit_app/requirements.txt pytest
+
+      - name: Smoke-test the app
+        run: pytest tests/test_app.py -v
