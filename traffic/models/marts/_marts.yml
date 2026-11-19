@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: Calendar days (IST) covered by the data.
+    columns:
+      - name: date_key
+        data_tests: [unique, not_null]
+
+  - name: dim_road_segment
+    description: Monitored road segments.
+    columns:
+      - name: road_segment_id
+        data_tests: [unique, not_null]
+
+  - name: dim_weather
+    columns:
+      - name: weather_key
+        data_tests: [unique, not_null]
+
+  - name: dim_incident
+    columns:
+      - name: incident_key
+        data_tests: [unique, not_null]
+
+  - name: fact_traffic_events
+    description: One row per sensor reading.
+    columns:
+      - name: event_id
+        data_tests: [unique, not_null]
+      - name: congestion_level
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [Low, Moderate, High, Severe]
+      - name: date_key
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_date'), field: date_key}
+      - name: road_segment_id
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_road_segment'), field: road_segment_id}
+      - name: weather_key
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_weather'), field: weather_key}
+      - name: incident_key
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_incident'), field: incident_key}
+
+  - name: fact_traffic_5min
+    description: One row per road segment per 5-minute window.
+    columns:
+      - name: window_start
+        data_tests: [not_null]
+      - name: peak_congestion_level
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [Low, Moderate, High, Severe]
+      - name: date_key
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_date'), field: date_key}

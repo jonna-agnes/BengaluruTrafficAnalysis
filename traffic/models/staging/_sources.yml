@@ -1,0 +1,24 @@
+version: 2
+
+# Loaded by COPY INTO from the S3 stages (cloud/setup.py). The DuckDB targets read the same
+# Parquet files directly through `external_location`.
+sources:
+  - name: raw
+    database: TRAFFIC
+    schema: RAW
+    tables:
+      - name: RAW_TRAFFIC_DATA
+        description: One validated sensor reading per row.
+        config:
+          meta:
+            external_location: "read_parquet('{{ env_var('TRAFFIC_LOCAL_PATH', 'output/lake') }}/raw/traffic_events/*.parquet', union_by_name = true)"
+
+  - name: aggregated
+    database: TRAFFIC
+    schema: AGGREGATED
+    tables:
+      - name: TRAFFIC_METRICS_5MIN
+        description: One row per road segment per 5-minute window.
+        config:
+          meta:
+            external_location: "read_parquet('{{ env_var('TRAFFIC_LOCAL_PATH', 'output/lake') }}/aggregated/5min/*.parquet', union_by_name = true)"
